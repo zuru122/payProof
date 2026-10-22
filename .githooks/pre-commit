@@ -1,0 +1,49 @@
+#!/bin/sh
+# Installed by scaffold-stacks — block likely seed phrases in Testnet/Mainnet settings.
+if [ -n "${SCAFFOLD_ALLOW_COMMITTED_MNEMONIC}" ]; then
+  echo "" >&2
+  echo "================================================================" >&2
+  echo "  scaffold-stacks git hook: BYPASS ACTIVE" >&2
+  echo "================================================================" >&2
+  echo "  SCAFFOLD_ALLOW_COMMITTED_MNEMONIC is set — mnemonic guard skipped." >&2
+  echo "  Emergency override only; do not use for routine commits." >&2
+  echo "================================================================" >&2
+  echo "" >&2
+  exit 0
+fi
+
+# Use a for-loop (not `| while read`) so `exit 1` aborts the hook reliably.
+for f in $(git diff --cached --name-only --diff-filter=ACM); do
+  case "$f" in
+    */settings/Testnet.toml|*/settings/Mainnet.toml) ;;
+    *) continue ;;
+  esac
+
+  content=$(git show ":$f" 2>/dev/null) || continue
+  mnemonic=$(printf '%s\n' "$content" | sed -n 's/^[[:space:]]*mnemonic[[:space:]]*=[[:space:]]*"\([^"]*\)".*/\1/p' | head -n 1)
+  [ -z "$mnemonic" ] && continue
+
+  # Scaffold placeholders use angle brackets; real BIP39 phrases do not.
+  mn_first=$(printf '%.1s' "$mnemonic")
+  [ "$mn_first" = '<' ] && continue
+
+  # Rough BIP39 heuristic: 12+ whitespace-separated tokens (typical seed length).
+  words=$(printf '%s\n' "$mnemonic" | awk '{ print NF }')
+  if [ "$words" -ge 12 ] 2>/dev/null; then
+    echo "" >&2
+    echo "================================================================" >&2
+    echo "  scaffold-stacks git hook: possible seed phrase in commit" >&2
+    echo "================================================================" >&2
+    echo "  Staged file: $f" >&2
+    echo "  [accounts.deployer].mnemonic has $words whitespace-separated tokens." >&2
+    echo "  Committing real mnemonics to git is unsafe (history, forks, leaks)." >&2
+    echo "" >&2
+    echo "  Prefer env-based keys or a gitignored secrets file. To force this commit:" >&2
+    echo "    SCAFFOLD_ALLOW_COMMITTED_MNEMONIC=1 git commit   # not recommended" >&2
+    echo "================================================================" >&2
+    echo "" >&2
+    exit 1
+  fi
+done
+
+exit 0

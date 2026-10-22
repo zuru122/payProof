@@ -1,0 +1,8 @@
+# stacksdapp project marker — enables root walk-up from subdirectories.
+# https://github.com/scaffold-stack/scaffold-stack
+
+[project]
+name = "pay_proof"
+
+# [defaults]
+# network = "devnet"

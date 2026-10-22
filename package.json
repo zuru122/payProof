@@ -1,0 +1,12 @@
+{
+  "name": "pay_proof",
+  "private": true,
+  "scripts": {
+    "dev": "stacksdapp dev",
+    "generate": "stacksdapp generate",
+    "deploy": "stacksdapp deploy",
+    "test": "stacksdapp test",
+    "check": "stacksdapp check",
+    "setup-hooks": "git config core.hooksPath .githooks"
+  }
+}
