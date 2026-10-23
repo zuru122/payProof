@@ -14,3 +14,9 @@ check_checker = { trusted_sender = false, trusted_caller = false, callee_filter 
 path = "contracts/counter.clar"
 clarity_version = 6
 epoch = "4.0"
+
+
+[contracts.payproof]
+path = "contracts/payproof.clar"
+clarity_version = 6
+epoch = "4.0"

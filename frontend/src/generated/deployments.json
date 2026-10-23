@@ -1,0 +1,16 @@
+{
+  "network": "testnet",
+  "deployed_at": "2026-10-22T23:40:44.879243876+00:00",
+  "contracts": {
+    "payproof": {
+      "contract_id": "ST26C7Y2APM6CNQJAR8YRFSS5EWA3A8FN0210V9AZ.payproof",
+      "tx_id": "0x5c1bd424961231d65676527e77296fab109e8b33d0b716299623e746f3e452ff",
+      "block_height": 0
+    },
+    "counter": {
+      "contract_id": "ST26C7Y2APM6CNQJAR8YRFSS5EWA3A8FN0210V9AZ.counter",
+      "tx_id": "0x7bba682df92b5516ff2bbf32cab1b27d5ec9bd199d002df73f3f2196d7b1c239",
+      "block_height": 0
+    }
+  }
+}

@@ -1,9 +1,6 @@
 import React from 'react'
 import { WalletConnect } from './WalletConnect'
 import NetworkBadge from './NetworkBadge'
-import Image from 'next/image'
-import logo from '@/public/logo.png'
-import github from '@/public/icon.png'
 
 function Header() {
   return (
@@ -22,7 +19,6 @@ function Header() {
     ">
       <div className="flex items-center gap-1">
         <div className="flex items-center gap-3">
-          <Image src={logo} alt="logo" width={32} height={32} />
           <span className="text-[#FFFFFF] text-[20px] md:text-[24.77px] font-medium font-instrument">
             SfdStacks
           </span>
@@ -38,7 +34,6 @@ function Header() {
             className="no-underline" 
           >
         <div className='hidden sm:flex space-x-2 items-center justify-center cursor-pointer hover:opacity-80 transition-opacity'>
-          <Image src={github} alt="github" width={20} height={20} />
           <h1 className='text-[14px] md:text-[16px] text-[#8F8D8E] font-instrument'>Github</h1>
         </div>
         </a>
